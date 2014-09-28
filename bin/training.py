@@ -21,16 +21,17 @@ if argvs[2] != 'male' and argvs[2] != 'female' and argvs[2] != 'other':
 
 account = argvs[1]
 sex = argvs[2]
-count   = 200
+count = 200
+dbpath = '/Users/wkodate/Develop/Juminhyo/db/test.db'
 
 t=twitterapi.twitterapi()
 statuses = t.getUserTimeline(account, count)
 textList=t.getTweets(statuses)
 normTextList = []
 for s in statuses:
-    normTextList.append(t.normalizeTweet(s.text).decode('utf-8'))
+    normTextList.append(t.normalizeTweet(s.text))
 cl=classifier.fisherclassifier(classifier.getwords)
-cl.setdb('/Users/wkodate/Develop/Juminhyo/db/test.db')
+cl.setdb(dbpath)
 print 'Training ...'
 classifier.sampletrain(cl, normTextList, sex)
 print 'Success: '+account+' has been trained as '+sex

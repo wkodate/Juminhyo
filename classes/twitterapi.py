@@ -60,9 +60,16 @@ class twitterapi:
             print k.encode(self.charEncoding)
 
     def normalizeTweet(self, text):
-        # TODO remove wwwww, RT and http:// etc.
-        # remove reply user's name
-        return re.sub(r'@\w+ ', '', text.encode(self.charEncoding))
+        # encoding
+        encodedText = text.encode(self.charEncoding)
+        # remove replied user's name
+        rmReply = re.sub(r'@\w+[: | ]', '', encodedText)
+        # remove RT
+        rmRT = re.sub(r'RT ', '', rmReply)
+        # remove urls
+        rmUrl = re.sub(r'https?://[\w/:%#\$&\?\(\)~\.=\+\-]+', '', rmRT)
+        # remove white space in front and behind
+        return rmUrl.strip().decode(self.charEncoding)
 
 def list2String(list):
     return " " . join(list)
