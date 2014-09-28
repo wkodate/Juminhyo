@@ -60,7 +60,7 @@ class twitterapi:
             print k.encode(self.charEncoding)
 
     def normalizeTweet(self, text):
-        # TODO remove www, RT and  etc.
+        # TODO remove wwwww, RT and http:// etc.
         # remove reply user's name
         return re.sub(r'@\w+ ', '', text.encode(self.charEncoding))
 
