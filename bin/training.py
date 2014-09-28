@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-sys.path.append("../")
+sys.path.append("/Users/wkodate/Develop/Juminhyo/classes")
 
 import twitterapi
 import classifier
@@ -11,7 +11,7 @@ argvs = sys.argv
 argc = len(argvs)
 
 def printDebug():
-    print 'Usage: python %s account [male|female|other]' % argvs[0]
+    print 'Usage: $ python %s <account> [male|female|other]' % argvs[0]
     quit()
 
 if argc != 3 : 
@@ -26,14 +26,11 @@ count   = 200
 t=twitterapi.twitterapi()
 statuses = t.getUserTimeline(account, count)
 textList=t.getTweets(statuses)
-print textList
 normTextList = []
 for s in statuses:
-    normTextList.append(t.normlizeTweet(s.text).decode('utf-8'))
-
-print normTextList
+    normTextList.append(t.normalizeTweet(s.text).decode('utf-8'))
 cl=classifier.fisherclassifier(classifier.getwords)
-cl.setdb('test.db')
+cl.setdb('/Users/wkodate/Develop/Juminhyo/db/test.db')
 print 'Training ...'
 classifier.sampletrain(cl, normTextList, sex)
 print 'Success: '+account+' has been trained as '+sex

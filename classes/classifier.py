@@ -64,6 +64,7 @@ class classifier:
         return [d[0] for d in cur]
 
     def train(self, item, cat):
+        print item
         features = self.getfeatures(item)
         # このカテゴリ中の特徴たちのカウントを増やす
         for f in features:
