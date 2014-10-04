@@ -26,7 +26,10 @@ class twitterapi:
         return self.twitterApi.VerifyCredentials()
 
     def getUserTimeline(self, name='wkodate', cnt=20):
-        return self.twitterApi.GetUserTimeline(screen_name=name, count=cnt)
+        try:
+            return self.twitterApi.GetUserTimeline(screen_name=name, count=cnt)
+        except:
+            return
 
     def getSearch(self, tm, cnt=200):
         return self.twitterApi.GetSearch(term=tm, count=cnt)
