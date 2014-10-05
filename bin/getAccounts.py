@@ -24,8 +24,8 @@ for i in range(START_PAGE_NUM, END_PAGE_NUM):
         continue
     t = twitterapi.twitterapi()
     statuses = t.getUserTimeline(name=account[1], cnt=1)
-    # 非公開設定対応のときはスキップ
-    if statuses == None:
+    # 非公開設定対応もしくはTimelineが空のときはスキップ
+    if statuses is None or not statuses:
         continue
     desc = statuses[0].user.description.encode('utf-8')
     account.append(re.sub(LINE_SEPARATOR_PATTERN, '', desc))
