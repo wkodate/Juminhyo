@@ -20,7 +20,6 @@ account = argvs[1]
 
 fsq=foursquareapi.foursquareapi(account)
 profile = {}
-fsq.requestUser()
 if not fsq.is4sqUser():
     print account + ' is not 4sq user.'
     quit()
@@ -38,17 +37,18 @@ if homeCity is not None:
     profile['homeCity'] = homeCity
 
 # facebook
-fb = facebookapi.facebookapi()
 fbid = fsq.getFacebookId()
 if fbid is not None:
+    fb = facebookapi.facebookapi(fbid)
     profile['fbId'] = fbid
-    fbuser = fb.getUser(fbid)
-    fbName = fb.getName(fbuser)
+    fbName = fb.getName()
     profile['fbName'] = fbName
-    fbGender = fb.getGender(fbuser)
+    fbGender = fb.getGender()
     profile['fbGender'] = fbGender
-    fbLocale = fb.getLocale(fbuser)
+    fbLocale = fb.getLocale()
     profile['fbLocale'] = fbLocale
+    fbLink = fb.getLink()
+    if (fbLink is not None): profile['fbLink'] = fbLink
 
 # print
 for k,v in profile.items():

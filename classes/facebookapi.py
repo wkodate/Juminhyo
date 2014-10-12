@@ -5,33 +5,35 @@ sys.path.append("/Users/wkodate/Develop/Juminhyo/")
 import urllib2
 import json
 
-# FourSquare API
-# https://github.com/mLewisLogic/foursquare
+# Facebook API
 
 class facebookapi:
-    def __init__(self):
+    def __init__(self, fbid):
         self.baseUrl = "https://graph.facebook.com/"
+        self.user = self.requestUser(self.baseUrl + fbid)
+        self.decodedUser = json.loads(self.user)
 
-    def getUser(self, fbid):
-        response = urllib2.urlopen(self.baseUrl+fbid)
+    def requestUser(self, url):
+        response = urllib2.urlopen(url)
         return response.read()
 
-    def getName(self, user):
-        decodedJson = json.loads(user)
-        name = decodedJson['name']
+    def decodeJson(self, jsonReq):
+        return json.loads(jsonReq)
+
+    def getName(self):
+        name = self.decodedUser['name']
         return name
 
-    def getGender(self, user):
-        decodedJson = json.loads(user)
-        gender = decodedJson['gender']
+    def getGender(self):
+        gender = self.decodedUser['gender']
         return gender
 
-    def getLink(self, user):
-        decodedJson = json.loads(user)
-        link = decodedJson['link']
+    def getLink(self):
+        if not 'link' in self.decodedUser:
+            return
+        link = self.decodedUser['link']
         return link
 
-    def getLocale(self, user):
-        decodedJson = json.loads(user)
-        locale = decodedJson['locale']
+    def getLocale(self):
+        locale = self.decodedUser['locale']
         return locale
