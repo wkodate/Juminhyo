@@ -19,6 +19,6 @@ account = argvs[1]
 count = 200
 
 t=twitterapi.twitterapi()
-statuses = t.getUserTimeline(account);
+statuses = t.getUserTimeline(account, count);
 fw = t.getFeaturedWords(statuses)
 print fw

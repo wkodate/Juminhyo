@@ -23,10 +23,12 @@ class foursquareapi:
         self.HOME_CITY = 'homeCity'
         self.FACEBOOK_ID = 'facebook'
 
-    def requestUser(self):
-        response = urllib2.urlopen(self.url)
-        self.user = response.read()
+        self.user = self.requestUser(self.url)
         self.decodedUser = self.decodeJson(self.user)
+
+    def requestUser(self, url):
+        response = urllib2.urlopen(url)
+        return response.read()
 
     def decodeJson(self, jsonReq):
         return json.loads(jsonReq)

@@ -53,7 +53,7 @@ class twitterapi:
 
     def extractFeature(self, text):
         normText = self.normalizeTweet(text)
-        sentence = urllib.quote_plus(normText)
+        sentence = urllib.quote_plus(normText.encode(self.charEncoding))
         query = "%s?appid=%s&output=%s&sentence=%s" % (self.keyphraseUrl, self.yahooApiAppId, "json", sentence)
         c = urllib2.urlopen(query)
         result = json.loads(c.read())
