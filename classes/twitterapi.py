@@ -34,6 +34,12 @@ class twitterapi:
     def getSearch(self, tm, cnt=200):
         return self.twitterApi.GetSearch(term=tm, count=cnt)
 
+    def getFriends(self, name):
+        return self.twitterApi.GetFriends(screen_name=name)
+
+    def getFollowers(self, name):
+        return self.twitterApi.GetFollowers(screen_name=name)
+
     def printTweets(self, statuses):
         for s in statuses:
             print s.text.encode(self.charEncoding)
